@@ -6,7 +6,7 @@ const os = require('os');
 function copyToClipboard(content) {
     // 空の内容の場合はコピーを実行しない
     if (!content || content.trim() === '') {
-        console.log('Warning: コンテンツが空のため、クリップボードにコピーしませんでした');
+        console.log('警告: コンテンツが空のため、クリップボードにコピーしませんでした');
         return;
     }
 
@@ -24,7 +24,7 @@ function copyToClipboard(content) {
             if (error) {
                 const clipProcess = exec('clip', (clipErr) => {
                     if (clipErr) {
-                        console.log('Warning: クリップボードへのコピーに失敗しました');
+                        console.log('警告: クリップボードへのコピーに失敗しました');
                     } else {
                         console.log('クリップボードにコピーしました (fallback: clip)');
                     }
@@ -42,7 +42,7 @@ function copyToClipboard(content) {
         // macOS: pbcopy にパイプ
         const pb = exec('pbcopy', (err) => {
             if (err) {
-                console.log('Warning: クリップボードへのコピーに失敗しました (pbcopy)');
+                console.log('警告: クリップボードへのコピーに失敗しました (pbcopy)');
             } else {
                 console.log('クリップボードにコピーしました');
             }
@@ -52,7 +52,7 @@ function copyToClipboard(content) {
             pb.stdin.end();
         }
     } else {
-        console.log('Warning: 未対応のプラットフォームです (Windows/macOS をサポート)');
+        console.log('警告: 未対応のプラットフォームです (Windows/macOS をサポート)');
     }
 }
 
@@ -83,7 +83,7 @@ function main() {
     const resolvedPath = path.resolve(filePath);
     
     if (!fs.existsSync(resolvedPath)) {
-        console.log(`Error: ファイルが見つかりません: ${resolvedPath}`);
+        console.log(`エラー: ファイルが見つかりません: ${resolvedPath}`);
         process.exit(1);
     }
     
@@ -92,7 +92,7 @@ function main() {
         console.log(`ファイルを読み込みました: ${resolvedPath}`);
         copyToClipboard(content);
     } catch (error) {
-        console.log(`Error: ファイルの読み込みに失敗しました: ${error.message}`);
+        console.log(`エラー: ファイルの読み込みに失敗しました: ${error.message}`);
         process.exit(1);
     }
 }

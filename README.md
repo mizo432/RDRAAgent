@@ -2,8 +2,10 @@
 
 ## 概要
 
-RDRAAgentは、RDRA（Relationship Driven Requirement Analysis）手法を用いてClaude Codeを使って要件定義を段階的に行うシステムです。初期要望から4つのフェーズを通じて体系的に要件を定義し、仕様のたたき台まで生成します。
+RDRAAgentは、RDRA（Relationship Driven Requirement Analysis）手法を用いてLLM（大規模言語モデル）を使って要件定義を段階的に行うシステムです。初期要望から4つのフェーズを通じて体系的に要件を定義し、仕様のたたき台まで生成します。
 初期要望から要件を定義し、妥当性検証環境で要件を検証します。これらはメニュー(node menu)を使ってRDRA定義や検証、仕様化、ツール利用を行います。
+
+**対応LLM**: Junie (default) / Claude Code / Gemini CLI / Codex CLI
 
 ## インストール方法
 
@@ -30,8 +32,9 @@ node menu.js
 
 **含まれるフォルダー構造：**
 ```
-RDRAAgent0.6/
+RDRAAgent/
 ├── RDRA_Knowledge/       # ナレッジベース
+├── .junie/               # Junie設定
 ├── .claude/              # Claude Code設定
 ├── .cursor/              # Cursor設定
 ├── Samples/              # サンプルプロジェクト
@@ -59,13 +62,33 @@ RDRAAgent0.6/
 ## プロジェクトの構築ポリシー
 - 様々な環境、モデルに対応できるように他のライブラリーへの依存を無くす
 - 外部ライブラリの依存を無くすために、テキストベースのファイルで構成する
-- 現状のプロジェクトは「Claude Code」を使用します。
-- menu.jsの「getLLMTerminalCommand」を見直すことで他のモデルに変更することが出来ます。
+- `モデル設定.json`でLLMプロバイダーを切り替え可能（Junie/Claude Code/Gemini/Codex）
+- 新規プロバイダーを追加するには、`モデル設定.json`に設定を追加するのみ
 
 ### 対応環境
 - **OS**: Windows 11 / Mac
 - **Node.js**: バージョン18以上推奨
-- **Model**:Claude code(default)
+- **LLM**: Junie (default) / Claude Code / Gemini CLI / Codex CLI
+
+### LLMの切り替え
+`モデル設定.json`の`default.provider`を変更することで、使用するLLMを切り替えることができます。
+
+```json
+{
+  "default": {
+    "provider": "junie"  // junie, claude, gemini, codex から選択
+  }
+}
+```
+
+**Junieを使用する場合**:
+- JetBrains IDEでJunieを有効にする
+- `junie`コマンドが利用可能であることを確認
+- `モデル設定.json`の`default.provider`を`"junie"`に設定（デフォルト）
+
+**Claude Codeを使用する場合**:
+- Claude Codeをインストールし、`claude`コマンドが利用可能であることを確認
+- `モデル設定.json`の`default.provider`を`"claude"`に設定
 
 ## メニュー起動 Terminal
 ```bash/command
@@ -76,7 +99,7 @@ node menu.js
 
 ### 主な特徴
 - **段階的な要件定義**: 4つのフェーズで段階的にRDRA定義を作成
-- **AI連携**: Claude（大規模言語モデル）を活用して自動生成
+- **マルチLLM対応**: Junie（デフォルト）/ Claude Code / Gemini / Codex から選択可能
 - **可視化機能**: RDRAGraphによる要件の関連性の可視化
 - **画面プロトタイプ**: ブラウザで画面定義を確認
 - **妥当性検証**: 要件と仕様の整合性を自動検証
@@ -346,15 +369,23 @@ node menu.js
 - `バリエーション.tsv` - バリエーション（統合版）
 - `関連データ.txt` - RDRAGraph用の関連データ
 
-## LLM連携（Windows環境）
+## LLM連携
 
 メニューの一部機能（1, 2, 21）はLLM（大規模言語モデル）を使用します：
-- 自動的に新しいターミナルウィンドウが開きます
+- `モデル設定.json`で指定されたLLMが自動的に実行されます
 - 実行される指示ファイル：
   - メニュー1, 2: `RDRA_Knowledge/0_ZeroOne指示.md`
   - （廃止メニュー）13, 14: `_no_use/deprecated_menu_13_14_22/` に移動済み
   - メニュー21: `RDRA_Knowledge/2_Spec指示.md`
-- `RDRA_Knowledge/helper_tools/command/commandRun.bat` を経由して実行
+- `RDRA_Knowledge/helper_tools/parallelRun/parallel-runner.js` を経由して実行
+
+### 対応LLM
+- **Junie** (デフォルト): JetBrains IDEに組み込みのコーディングエージェント
+- **Claude Code**: AnthropicのCLIツール
+- **Gemini CLI**: GoogleのCLIツール
+- **Codex CLI**: OpenAIのCLIツール
+
+LLMの切り替え方法は「対応環境」セクションを参照してください。
 
 ## トラブルシューティング
 
@@ -445,12 +476,15 @@ A: Samplesフォルダー内のサンプルの初期要望.txtを、プロジェ
 
 ## バージョン情報
 
-**現在のバージョン**: RDRAAgent v0.6
+**現在のバージョン**: RDRAAgent v0.65
 
 ### 変更履歴
 - v0.65: 現行バージョン
   - 4フェーズのRDRA定義プロセス実装
   - BUCアクター別画面表示機能
+  - **Junie対応**: Junie liteで動作可能に
+  - **マルチLLM対応**: モデル設定.jsonでLLMを切り替え可能（Junie/Claude/Gemini/Codex）
+  - **Junie設定**: .junie/AGENTS.mdを追加
 
 ## ライセンス
 MIT License

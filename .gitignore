@@ -2,9 +2,9 @@
 node_modules/
 
 # 作業用フォルダー（生成されるファイル）
-# 0_RDRAZeroOne/
-# 1_RDRA/
-# 2_RDRASpec/
+0_RDRAZeroOne/
+1_RDRA/
+2_RDRASpec/
 
 # ログファイル
 *.log
@@ -17,9 +17,15 @@ Thumbs.db
 # エディター固有
 .vscode/
 .idea/
+.claude/
+.cursor/
+.junie/
 *.swp
 *.swo
 *~
+
+# 環境設定ファイル
+.env
 
 # このプロジェクト固有のフォルダー
 _no_use/

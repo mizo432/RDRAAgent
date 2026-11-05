@@ -11,7 +11,7 @@ function readSystemName() {
         const systemOverview = JSON.parse(fs.readFileSync(systemOverviewPath, 'utf-8'));
         return '\t' + systemOverview.system_name || '';
     } catch (error) {
-        console.log('Warning: システム概要.json の読み込みに失敗しました');
+        console.log('警告: システム概要.json の読み込みに失敗しました');
         return '';
     }
 }
@@ -36,7 +36,7 @@ function joinNonEmpty(parts, sep = ' / ') {
 function emitSection({ title, fileName, outHeader, mapRow }) {
     const filePath = path.join(rdraDir, fileName);
     if (!fs.existsSync(filePath)) {
-        console.log(`Warning: ${fileName} not found, skipping...`);
+        console.log(`警告: ${fileName} が見つからないためスキップします...`);
         return '';
     }
 

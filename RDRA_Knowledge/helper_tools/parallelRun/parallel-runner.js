@@ -151,9 +151,9 @@ async function executeParallel(filePairs, options = {}) {
     const inputFiles = filePairs.map(fp => fp.input).join(', ');
     console.log(`対象ファイル: ${inputFiles}`);
     
-    // System Prompt情報を表示
+    // システムプロンプト情報を表示
     if (options.systemPrompt) {
-        console.log(`System Prompt: ${options.systemPrompt}`);
+        console.log(`システムプロンプト: ${options.systemPrompt}`);
     }
     
     const startTime = Date.now();
@@ -199,7 +199,7 @@ async function main() {
             return;
         }
     } catch (error) {
-        console.error('fatal:', error.message);
+        console.error('致命的エラー:', error.message);
         process.exit(1);
     }
 }

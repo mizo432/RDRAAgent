@@ -53,7 +53,7 @@ function generateSystemPrompt(phaseNumber) {
 
     const projectRoot = findProjectRoot(__dirname);
     
-    // System Promptの内容を構築
+    // システムプロンプトの内容を構築
     const parts = [
         `# Phase${phaseNumber} 共通コンテキスト`,
         '',
@@ -100,12 +100,12 @@ function generateSystemPrompt(phaseNumber) {
         console.log(`ディレクトリ作成: ${outputDir}`);
     }
 
-    // System Promptファイルを書き出し
+    // システムプロンプトファイルを書き出し
     const content = parts.join('\n');
     fs.writeFileSync(outputAbsPath, content, 'utf-8');
     
     // 結果を表示
-    console.log(`System Prompt生成完了: ${outputRelPath}`);
+    console.log(`システムプロンプト生成完了: ${outputRelPath}`);
     console.log(`  - 読み込んだファイル: ${loadedCount}件`);
     if (skippedFiles.length > 0) {
         console.warn(`  - スキップしたファイル: ${skippedFiles.join(', ')}`);
@@ -129,7 +129,7 @@ function generateSpecSystemPrompt(phaseNumber) {
 
     const projectRoot = findProjectRoot(__dirname);
     
-    // System Promptの内容を構築
+    // システムプロンプトの内容を構築
     const parts = [
         `# RDRASpec Phase${phaseNumber} 共通コンテキスト`,
         '',
@@ -176,12 +176,12 @@ function generateSpecSystemPrompt(phaseNumber) {
         console.log(`ディレクトリ作成: ${outputDir}`);
     }
 
-    // System Promptファイルを書き出し
+    // システムプロンプトファイルを書き出し
     const content = parts.join('\n');
     fs.writeFileSync(outputAbsPath, content, 'utf-8');
     
     // 結果を表示
-    console.log(`Spec System Prompt生成完了: ${outputRelPath}`);
+    console.log(`仕様システムプロンプト生成完了: ${outputRelPath}`);
     console.log(`  - 読み込んだファイル: ${loadedCount}件`);
     if (skippedFiles.length > 0) {
         console.warn(`  - スキップしたファイル: ${skippedFiles.join(', ')}`);

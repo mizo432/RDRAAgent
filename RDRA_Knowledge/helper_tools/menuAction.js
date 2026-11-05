@@ -18,7 +18,7 @@ const {
     specFiles,
 } = require('./settings/rdraConfig');
 
-// System Prompt生成関数をインポート
+// システムプロンプト生成関数をインポート
 const { generateSystemPrompt, generateSpecSystemPrompt } = require('./tokenOptimization/generateSystemPrompt');
 
 // Phase5：システム概要生成プロンプト
@@ -157,19 +157,19 @@ function createMenuAction({ rl, promptUser, waitForEnterThenNext }) {
 	        return;
 	    }
 	    
-	    // System Promptを動的生成
+	    // システムプロンプトを動的生成
 	    let systemPromptPath = null;
 	    try {
-	        console.log(`Phase${phaseNumber}用のSystem Promptを生成中...`);
+	        console.log(`Phase${phaseNumber}用のシステムプロンプトを生成中...`);
 	        systemPromptPath = generateSystemPrompt(phaseNumber);
 	    } catch (err) {
-	        console.warn(`System Prompt生成をスキップ: ${err.message}`);
+	        console.warn(`システムプロンプト生成をスキップ: ${err.message}`);
 	    }
 	    
 	    // parallel-runner.jsに渡す引数を構築
 	    const args = config.promptMap.map(pair => pair.prompt);
 	    
-	    // System Promptオプションを追加
+	    // システムプロンプトオプションを追加
 	    if (systemPromptPath) {
 	        args.push('--system-prompt', systemPromptPath);
 	    }
@@ -179,7 +179,7 @@ function createMenuAction({ rl, promptUser, waitForEnterThenNext }) {
 	        console.log(`  ${pair.prompt}`);
 	    });
 	    if (systemPromptPath) {
-	        console.log(`System Prompt: ${systemPromptPath}`);
+	        console.log(`システムプロンプト: ${systemPromptPath}`);
 	    }
 	    console.log('');
 	    
@@ -414,18 +414,18 @@ function createMenuAction({ rl, promptUser, waitForEnterThenNext }) {
         }
 
         const runParallel = async (promptMap, specPhaseNumber) => {
-            // System Promptを動的生成
+            // システムプロンプトを動的生成
             let systemPromptPath = null;
             try {
-                console.log(`specPhase${specPhaseNumber}用のSystem Promptを生成中...`);
+                console.log(`specPhase${specPhaseNumber}用のシステムプロンプトを生成中...`);
                 systemPromptPath = generateSpecSystemPrompt(specPhaseNumber);
             } catch (err) {
-                console.warn(`System Prompt生成をスキップ: ${err.message}`);
+                console.warn(`システムプロンプト生成をスキップ: ${err.message}`);
             }
             
             const args = promptMap.map(pair => pair.prompt);
             
-            // System Promptオプションを追加
+            // システムプロンプトオプションを追加
             if (systemPromptPath) {
                 args.push('--system-prompt', systemPromptPath);
             }
@@ -435,7 +435,7 @@ function createMenuAction({ rl, promptUser, waitForEnterThenNext }) {
                 console.log(`  ${pair.prompt}`);
             });
             if (systemPromptPath) {
-                console.log(`System Prompt: ${systemPromptPath}`);
+                console.log(`システムプロンプト: ${systemPromptPath}`);
             }
             console.log('');
 
