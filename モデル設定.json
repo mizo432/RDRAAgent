@@ -6,22 +6,19 @@
   "providers": {
     "junie": {
       "command": "junie",
-      "useStdin": true,
+      "useStdin": false,
       "env": {
         "NO_COLOR": "1",
         "FORCE_COLOR": "0"
       },
-      "vars": {
-        "model": "Junie Lite"
-      },
+      "vars": {},
       "args": [
-        "--prompt"
+        "--input-format",
+        "text",
+        "--output-format",
+        "text"
       ],
       "argsIf": {
-        "model": [
-          "--model",
-          "{model}"
-        ],
         "maxTurns": [
           "--max-turns",
           "{maxTurns}"
@@ -29,6 +26,9 @@
         "systemPrompt": [
           "--system-prompt",
           "{systemPrompt}"
+        ],
+        "prompt": [
+          "{prompt}"
         ]
       }
     },
